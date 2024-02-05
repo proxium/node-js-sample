@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-app-container
-          image: proxium/nodejs-sample:master-ba9cb36241888749c664778112f7be5231525d63
+          image: proxium/nodejs-sample:master-d23fa0687c5ae2c4f2e65ce4f9af690fd62d4721
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
@@ -31,6 +31,10 @@ spec:
       port: 80
       targetPort: 8000
   type: NodePort
+  template:
+    spec:
+      containers:
+        - image: proxium/nodejs-sample:master-d23fa0687c5ae2c4f2e65ce4f9af690fd62d4721
 ---
 apiVersion: v1
 kind: Namespace
@@ -38,3 +42,8 @@ metadata:
   labels:
     kubernetes.io/metadata.name: nodejs-sample
   name: nodejs-sample
+spec:
+  template:
+    spec:
+      containers:
+        - image: proxium/nodejs-sample:master-d23fa0687c5ae2c4f2e65ce4f9af690fd62d4721
