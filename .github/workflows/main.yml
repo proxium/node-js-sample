@@ -34,10 +34,10 @@ jobs:
 
       - name: Update manifest file
         run: |
-          # Assuming you have a manifest file named k8s.yaml
+          # Assuming you have a manifest file named k8s.yml
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@gmail.com"
-          yq eval '.spec.template.spec.containers[0].image = "proxium/nodejs-sample:${{ env.GITHUB_BRANCH }}"' -i deployments/deployment.yml
+          yq eval '.spec.template.spec.containers[0].image = "proxium/nodejs-sample:${{ env.GITHUB_BRANCH }}"' -i deployments/k8s.yml
 
           git pull
           git add .
