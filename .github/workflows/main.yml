@@ -35,7 +35,7 @@ jobs:
         uses: Charlyzzz/update-k8s-image@v1.7.1
         with:
           manifest-path: deployments/k8s.yml
-          name: my-app-container
+          container-name: my-app-container
           
       - name: Commit manifest file
         run: |
