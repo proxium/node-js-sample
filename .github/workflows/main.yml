@@ -37,8 +37,7 @@ jobs:
           manifest-path: deployments/k8s.yml
           name: my-app-container
           
-      - name: Update manifest file
-        uses: mikefarah/yq@master
+      - name: Commit manifest file
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@gmail.com"
