@@ -32,12 +32,6 @@ jobs:
           docker push proxium/nodejs-sample:$GITHUB_REF_NAME-$GITHUB_SHA
 
       - name: Update k8s image
-        uses: Charlyzzz/update-k8s-image@v1.7.1
-        with:
-          manifest-path: deployments/k8s.yml
-          container-name: my-app-container
-
-      - name: Update k8s image
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '(select(documentIndex == 0) | .spec.template.spec.containers[0].image) = "proxium/nodejs-sample:${{ env.GITHUB_BRANCH }}"' deployments/k8s.yml
