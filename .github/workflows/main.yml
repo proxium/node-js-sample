@@ -32,10 +32,6 @@ jobs:
         with:
           cmd: yq -i '(select(documentIndex == 0) | .spec.template.spec.containers[0].image) = "proxium/nodejs-sample:${GITHUB_SHA}"' deployments/k8s.yml
 
-      - name: Deploy to Kubernetes (replace with your deployment method)
-        # This step needs to be adapted based on your preferred deployment method
-        # (e.g., using kubectl, Helm, or a dedicated GitOps tool)
-
       - name: Commit manifest file (optional, consider GitOps if applicable)
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
