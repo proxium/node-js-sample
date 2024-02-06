@@ -26,21 +26,23 @@ jobs:
           docker buildx inspect default --bootstrap
           docker buildx build --file Dockerfile -t proxium/nodejs-sample:$GITHUB_REF_NAME-$GITHUB_SHA --load .
 
-
       - name: Push Docker image to Docker Hub
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username proxium --password-stdin
           docker push proxium/nodejs-sample:$GITHUB_REF_NAME-$GITHUB_SHA
 
+      - name: Update k8s image
+        uses: Charlyzzz/update-k8s-image@v1.7.1
+        with:
+          manifest-path: deployments/k8s.yml
+          name: my-app-container
+          
       - name: Update manifest file
+        uses: mikefarah/yq@master
         run: |
-          # Assuming you have a manifest file named k8s.yml
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@gmail.com"
-          yq eval '.spec.template.spec.containers[0].image = "proxium/nodejs-sample:${{ env.GITHUB_BRANCH }}"' -i deployments/k8s.yml
-
           git pull
-          git add .
-                 
+          git add .  
           git commit -m "updating newer image"
-          git push --set-upstream origin master  
+          git push --set-upstream origin master
