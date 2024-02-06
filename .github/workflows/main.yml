@@ -36,12 +36,17 @@ jobs:
         with:
           manifest-path: deployments/k8s.yml
           container-name: my-app-container
-          
+
+      - name: Update k8s image
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '(select(documentIndex == 0) | .spec.template.spec.containers[0].image) = "proxium/nodejs-sample:${{ env.GITHUB_BRANCH }}"' deployments/k8s.yml
+
       - name: Commit manifest file
         run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@gmail.com"
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git pull
           git add .  
-          git commit -m "updating newer image"
+          git commit -m "Updating newer image"
           git push --set-upstream origin master
