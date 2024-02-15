@@ -26,21 +26,20 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set the environment variable
-        run: echo "IMAGE_PREFIX=${GITHUB_ACTOR}" >> $GITHUB_ENV
+      # - name: Set the environment variable
+      #   run: echo "IMAGE_PREFIX=${GITHUB_ACTOR}" >> $GITHUB_ENV
 
-      - name: debug
-        run: |
-          echo "My image prefix value is: $IMAGE_PREFIX"
-          echo "My variable value is: ${GITHUB_ACTOR}/${{ env.IMAGE_NAME }}:${GITHUB_SHA}"
+      # - name: debug
+      #   run: |
+      #     echo "My image prefix value is: $IMAGE_PREFIX"
+      #     echo "My variable value is: ${GITHUB_ACTOR}/${{ env.IMAGE_NAME }}:${GITHUB_SHA}"
 
-
-      # - name: Build and push Docker image
-      #   uses: docker/build-push-action@v5
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: "${GITHUB_ACTOR}/${{ env.IMAGE_NAME }}:${GITHUB_SHA}"
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${GITHUB_SHA}"
 
       # - name: Update k8s image
       #   uses: mikefarah/yq@master
