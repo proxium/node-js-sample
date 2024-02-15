@@ -39,7 +39,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${GITHUB_SHA}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:eb8e0330dcc0c55a8d8967b2aca7784a333317fd
 
       # - name: Update k8s image
       #   uses: mikefarah/yq@master
