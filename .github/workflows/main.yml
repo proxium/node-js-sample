@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - master
-# see https://stackoverflow.com/a/76181305
+
 env:
   REGISTRY: docker.io
   IMAGE_NAME: nodejs-sample
-#images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
 jobs:
   build-and-deploy:
