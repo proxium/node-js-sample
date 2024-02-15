@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: my-app-container
-          image: proxium/nodejs-sample:dfe56d80a1747ecc9d11cb0f0f03171ec3e14809
+          image: proxium/nodejs-sample:efa8adc78fcb1a0ab8cd82118a25755dbfd4d7c3
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
