@@ -36,7 +36,7 @@ jobs:
       - name: Update k8s image
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '(select(documentIndex == 0) | .spec.template.spec.containers[0].image) = "proxium/${{ env.IMAGE_NAME }}:${GITHUB_SHA}"' deployments/k8s.yml
+          cmd: yq -i '(select(documentIndex == 0) | .spec.template.spec.containers[0].image) = "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${GITHUB_SHA}"' deployments/k8s.yml
 
       - name: Commit manifest file (optional, consider GitOps if applicable)
         run: |
